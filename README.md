@@ -1,43 +1,38 @@
-# grunt-stamplay
+# gulp-stamplay
 
-> Deploy your project as a grunt module
+> Deploy your project with a gulp plugin
 
 ## Getting Started
-This plugin requires Grunt `~0.4.5`
-
-If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
+If you haven't used [Gulp](http://gulpjs.com/) before, be sure to check out the [Getting Started](https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md) guide, as it explains how to create a [Gulpfile](https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md#3-create-a-gulpfilejs-at-the-root-of-your-project) as well as install and use Gulp plugins. Once you're familiar with that process, you may install this plugin with this command:
 
 ```shell
-npm install grunt-stamplay --save-dev
+npm install gulp-stamplay --save-dev
 ```
 
-Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
+Once the plugin has been installed, it may be enabled inside your Gulpfile with this line of JavaScript:
 
 ```js
-grunt.loadNpmTasks('grunt-stamplay');
+var options = {
+  appId: 'YOUR-APPID',
+  apiKey: 'YOUR-APIKEY',
+  public: './src'
+}
+
+var stamplay = require('gulp-stamplay')(options);
 ```
 
-## The "stamplay" task
-
-### Overview
-In your project's Gruntfile, add a section named `stamplay` to the data object passed into `grunt.initConfig()`.
+## Usage
 
 ```js
-grunt.initConfig({
-  stamplay: {
-    options: {
-      appId: 'YOUR-APPID',
-      apiKey: 'YOUR-APIKEY',
-      public: './'
-    },
-    deploy: {
-      message: 'deploy message',    // message to describe the deploy
-      ignore: [                     // files that mustn't be uploaded with the deploy
-        '**/.*',
-        '**/node_modules/**'
+gulp.task('task-name', function () {
+  return gulp.src('src/*')
+    .pipe(stamplay.deploy({
+      message: 'deploy message',
+      ignore: [
+        'src/index_dev.html'
       ]
-    }
-  },
+    })
+  )
 });
 ```
 
@@ -58,22 +53,33 @@ Type: `String`
 
 The public property tells the task which directory to upload to Stamplay. This directory must be inside the project directory and must exist. The default value is the root directory or your project.
 
-#### Custom Options
-In this example, headers property is used to specify to the Stamplay platform that all files with `.html` extetions can be cached from the client. You can find more informations about options [here](https://stamplay.com/docs/hosting/command-line)
+## API
+
+#### deploy(deployOptions)
+In this example, headers property is used to specify to the Stamplay platform that all files with `.html` extension can be cached from the client. You can find more informations about options [here](https://stamplay.com/docs/hosting/command-line)
+
+#### deployOptions.message
+Type: `String`
+
+The message to describe the deploy
+
+#### deployOptions.ignore
+Type: `Array`
+
+Files that will not be uploaded during the deploy
+
+#### deployOptions.headers
+Type: `Array`
+
+Specifies headers for client caching
 
 ```js
-grunt.initConfig({
-  stamplay: {
-    options: {
-      appId: 'YOUR-APPID',
-      apiKey: 'YOUR-APIKEY',
-      public: './'
-    },
-    deploy: {
+gulp.task('task-name', function () {
+  return gulp.src('src/*')
+    .pipe(stamplay.deploy({
       message: 'deploy message',
       ignore: [
-        '**/.*',
-        '**/node_modules/**'
+        'src/index_dev.html'
       ],
       headers: [{
         source: '**/*.@(html)',
@@ -82,8 +88,8 @@ grunt.initConfig({
           value: 'max-age=7200'
         }]
       }]
-    }
-  },
+    })
+  )
 });
 ```
 
