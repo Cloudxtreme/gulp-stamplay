@@ -94,6 +94,6 @@ gulp.task('task-name', function () {
 ```
 
 ## Release History
-#### v1.0.0 - (21-03-2016)
+#### v1.0.0 - (22-03-2016)
     - Stamplay deploy task
 
