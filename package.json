@@ -1,0 +1,35 @@
+{
+  "name": "gulp-stamplay",
+  "version": "1.0.0",
+  "description": "A gulp task to publish your static files to Stamplay's CDN",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Stamplay/gulp-stamplay"
+  },
+  "keywords": [
+    "gulp",
+    "gulpplugin",
+    "task",
+    "stamplay",
+    "deploy",
+    "stamplay-cli"
+  ],
+  "author": "Mirko Di Serafino",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Stamplay/gulp-stamplay/issues"
+  },
+  "homepage": "https://github.com/Stamplay/gulp-stamplay#readme",
+  "dependencies": {
+    "gulp-util": "^3.0.7",
+    "lodash": "^4.6.1",
+    "readable-stream": "^2.0.6",
+    "stamplay-cli": "^1.4.3"
+  },
+  "devDependencies": {
+    "eslint": "^2.4.0",
+    "eslint-config-airbnb": "^6.1.0"
+  }
+}
